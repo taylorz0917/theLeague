@@ -1,53 +1,66 @@
-drop table stats;
-drop table player;
-drop table roster;
-drop table teams;
-CREATE TABLE Teams(Team_Name varchar(100) NOT NULL,
-  Superbowl_Wins int,
-  Located varchar(100),
-  
-  PRIMARY KEY(Team_Name)
+drop table defense;
+CREATE TABLE DEFENSE(	
+  PLAYER VARCHAR(200) NOT NULL, 
+	TEAM VARCHAR(200) NOT NULL, 
+	INT FLOAT(10), 
+	YARDS FLOAT(10), 
+	AVG FLOAT(10), 
+	LG FLOAT(10), 
+	TD FLOAT(10), 
+	TACKLES FLOAT(10), 
+	SACK FLOAT(10), 
+	YEAR FLOAT(10) NOT NULL, 
+  POS VARCHAR(200), 
+	POSITIONTYPE VARCHAR(200), 
+  PRIMARY KEY (PLAYER, TEAM, YEAR)
 );
 
-insert into Teams(Team_Name) values ('SeaHawks');
-
-CREATE TABLE Roster(Team varchar(100) NOT NULL,
-  Team_Year int NOT NULL,
-  Coach varchar(100),
-  
-  CONSTRAINT fk_perRoster FOREIGN KEY (Team)
-REFERENCES Teams(Team_Name),
-  PRIMARY KEY(Team, Team_Year)
+drop table passing;
+CREATE TABLE PASSING(	
+  PLAYER VARCHAR(200) NOT NULL, 
+	TEAM VARCHAR(200) NOT NULL, 
+	ATT FLOAT(10), 
+	CMP FLOAT(10), 
+	PCT FLOAT(10), 
+	YDS FLOAT(15), 
+	YPA FLOAT(10), 
+	TD FLOAT(10),
+  INT FLOAT(15),
+	LG FLOAT(10), 
+	SACK FLOAT(10), 
+	YEAR FLOAT(10) NOT NULL, 
+  POS VARCHAR(200), 
+  POSITIONTYPE VARCHAR(200), 
+  PRIMARY KEY (PLAYER, TEAM, YEAR)
 );
 
-insert into Roster(Team, Team_Year) values ('SeaHawks', 1997);
-
-CREATE TABLE Player(PlayerName varchar(100) NOT NULL,
-  playsFor varchar(100) NOT NULL,
-  Year_Played int NOT NULL,
-  Pos varchar(100) NOT NULL,
-  
-  CONSTRAINT fk_perPlayer FOREIGN KEY (playsFor, Year_Played)
-REFERENCES Roster(Team, Team_Year),
-  PRIMARY KEY(PlayerName, playsFor, Year_Played)  
+drop table receiving;
+CREATE TABLE RECEIVING(	
+  PLAYER VARCHAR(200) NOT NULL, 
+	TEAM VARCHAR(200) NOT NULL, 
+	REC FLOAT(10), 
+	YDS FLOAT(15), 
+	YPG FLOAT(10), 
+	LG FLOAT(10),  
+	TD FLOAT(10),
+	YEAR FLOAT(10) NOT NULL, 
+  POS VARCHAR(200), 
+  POSITIONTYPE VARCHAR(200), 
+  PRIMARY KEY (PLAYER, TEAM, YEAR)
 );
 
-insert into Player(PlayerName, playsFor, Year_Played, Pos) values ('Antonio', 'SeaHawks', 1997, 'QuarterBack');
-
-CREATE TABLE Stats(Player varchar(100) NOT NULL,
-  Stats_Year int NOT NULL,
-  TeamID varchar(100) NOT NULL,
-  Touchdowns int,
-  Interceptions int,
-  ReceivingYards int,
-  RushingYards int,
-  Sacks int,
-  Safeties int,
-  Reception int,
-  
-  CONSTRAINT fk_perStats FOREIGN KEY (Player, TeamID, Stats_Year)
-REFERENCES Player(PlayerName, playsFor, Year_Played),
-  PRIMARY KEY(Player, Stats_Year)
+drop table rushing;
+CREATE TABLE RUSHING(	
+  PLAYER VARCHAR(200) NOT NULL, 
+	TEAM VARCHAR(200) NOT NULL, 
+	YDS FLOAT(15), 
+	YPG FLOAT(10), 
+	LG FLOAT(10),  
+	TD FLOAT(10),
+	YEAR FLOAT(10) NOT NULL, 
+  POS VARCHAR(200), 
+  POSITIONTYPE VARCHAR(200), 
+  PRIMARY KEY (PLAYER, TEAM, YEAR)
 );
 
-insert into Stats(Player, Stats_Year, TeamID) values ('Antonio', 1997, 'SeaHawks');
+
