@@ -21,7 +21,7 @@ else {
     oci_bind_by_name($statement, ":Team", $Team);
     oci_execute($statement);
     echo "$Team";
-    echo"<table border='2'>";
+    echo"<table id='table-1' border='2'>";
     echo "<tr><th>Player</th>
         <th>Team</th>
         <th>Offense/Defense</th>

@@ -42,23 +42,24 @@ td {
     background-size:100% 300px;
     border-bottom: 3px solid black;
 }
-#filterOptionsBox{
+#filterContainer{
+    background-color: AliceBlue;
+    width:84%;
+    margin-left:8%;
+}
+#filterDropdowns{
     visibility: hidden;
     display: none;
-    height: 30px;
-    width:60%;
-    margin-top:17px;
-    padding-right: 3%;
-    padding-left: 3%;
-    background-color: white;
     border-radius: 5px;
 }
 #searchResults{
     background-color:lightslategrey;
     border:2px solid gray;
     text-align:center;
+    margin-left: 8%;
+    margin-right: 8%;
     overflow:auto;
-    height:325px;
+    height:51%;
     padding-top:5px;
     bottom:0;
     overflow-x:auto;
@@ -94,4 +95,9 @@ td {
     font-size: 23px;
     margin-left: 10px;
     color:Dodgerblue;
+}
+.dropdown{
+    margin-top: 5px;
+    display: inline-block;
+    margin-bottom: 5px;
 }

@@ -10,23 +10,38 @@
     <link rel="stylesheet" type="text/css" href="style/style.css">
 
     <script type="text/javascript" charset="utf-8"> <!-- javascript in html -->
-  function getSearchResults(){
-    console.log('gets here');
-    var searchValue = document.getElementById('searchBar').value;
-    $.post("oracle.php", {Team: searchValue}, function(data){
-          $("#results").html(data);
-        }); 
-  }
-  /*
-      $(document).ready(function(){ // start here, if DOM is loaded
+    function getSearchResults(){
+      console.log('gets here');
+      var searchValue = document.getElementById('searchBar').value;
+      $.post("oracle.php", {Team: searchValue}, function(data){
+            $("#results").html(data);
+      //fixedHeader();
+          }); 
+    }
+    function filterOptions(){
+      document.getElementById('filterDropdowns').style = 'visibility:visible;display:initial;'
+    }
+    function closeOptions(){
+      document.getElementById('filterDropdowns').style = 'visibility:hidden;display:none;'
+    }
+    function fixedHeader(){
+        console.log('fixed header');
+      var tableOffset = $("#table-1").offset().top;
+      var $header = $("#table-1 > thead").clone();
+      var $fixedHeader = $("#header-fixed").append($header);
+       console.log($fixedHeader);
 
-      // request data from php script ...
-    // we expect the userCheck.php script to actually 'return' something, 
-      // some data ...
-        $.get("oracle.php", function(data){
-          $("#results").html(data);
-        });
-  });*/
+      $(window).bind("scroll", function() {
+          var offset = $(this).scrollTop();
+
+          if (offset >= tableOffset && $fixedHeader.is(":hidden")) {
+                $fixedHeader.show();
+          }
+          else if (offset < tableOffset) {
+                $fixedHeader.hide();
+          }
+      });
+    }
     </script>
   </head>
 
@@ -50,73 +65,84 @@
                 </div>
         </div>
       </div>
-      </div>
+    </div>
+    <div>
+      <div style="margin-top:8px;text-align: center;margin-bottom: 8px;"><button id="filter" style="color:dodgerblue" class="btn-link" onclick="filterOptions()">Search Options</button></div>
 
-      <div style="margin-top:8px;text-align: center;"><button id="filter" style="color:dodgerblue" class="btn-link" onclick="filterOptions()">Filter Search</button></div>
+        <!-- FILTER OPTIONS -->
+        <div class="container" id="filterContainer" style="text-align: center;">
+        <div id="filterDropdowns">
+        <button class="btn-link" style="float:left;padding-top:5px;color:red;" onclick="closeOptions()"><i class="glyphicon glyphicon-minus"></i></button>
+        <!-- YEAR -->
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Year
+            <span class="caret"></span></button>
 
-      <!-- FILTER OPTIONS -->
-      <div class="container" id="filterContainer">
+              <ul class="dropdown-menu">
+                <li><a tabindex="-1" href="#">2015 - present</a></li>
+                <li><a tabindex="-1" href="#">2010 - 2014</a></li>
+                <li><a tabindex="-1" href="#">2005 - 2009</a></li>
+                <li><a tabindex="-1" href="#">2000 - 2004</a></li>
+              </ul>
+          </div>
 
-      <div id="searchResults">
-        <div id="results">
-  </div>
-      </div><br><br><br>
-      <!-- YEAR -->
-        <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Year
-          <span class="caret"></span></button>
+        <!-- TEAM -->
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Team
+            <span class="caret"></span></button>
 
-            <ul class="dropdown-menu">
-              <li><a tabindex="-1" href="#">2015 - present</a></li>
-              <li><a tabindex="-1" href="#">2010 - 2014</a></li>
-              <li><a tabindex="-1" href="#">2005 - 2009</a></li>
-              <li><a tabindex="-1" href="#">2000 - 2004</a></li>
-            </ul>
+              <ul class="dropdown-menu">
+                <li><a class="info_link" tabindex="-1" href="#">Green Bay Packers</a></li>
+                <li><a tabindex="-1" href="#">New England Patriots</a></li>
+              </ul>
+          </div>
+        <!-- Stats -->
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Stats Category
+            <span class="caret"></span></button>
+
+              <ul class="dropdown-menu">
+                <li><a tabindex="-1" href="#">Passing</a></li>
+                <li><a tabindex="-1" href="#">Rushing</a></li>
+                <li><a tabindex="-1" href="#">Receiving</a></li>
+                <li><a tabindex="-1" href="#">Defense</a></li>
+              </ul>
+          </div>
+        <!-- Position -->
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Position
+            <span class="caret"></span></button>
+
+              <ul class="dropdown-menu">
+                <li><a tabindex="-1" href="#">Offense</a></li>
+                <li><a tabindex="-1" href="#">Defense</a></li>
+              </ul>
+          </div>
+
+        <!-- Plays -->
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Play Type
+            <span class="caret"></span></button>
+
+              <ul class="dropdown-menu">
+                <li><a tabindex="-1" href="#">Interceptions</a></li>
+                <li><a tabindex="-1" href="#">Receiving Yards</a></li>
+                <li><a tabindex="-1" href="#">Receptions</a></li>
+                <li><a tabindex="-1" href="#">Rushing Yards</a></li>
+                <li><a tabindex="-1" href="#">Sacks</a></li>
+                <li><a tabindex="-1" href="#">Safeties</a></li>
+                <li><a tabindex="-1" href="#">Touchdowns</a></li>
+              </ul>
+          </div>
+          <br>
+            <button class="btn-primary" onclick="">Reset</button>
+            <button class="btn-primary" onclick="">Apply</button> 
         </div>
-
-      <!-- TEAM -->
-        <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Team
-          <span class="caret"></span></button>
-
-            <ul class="dropdown-menu">
-              <li><a class="info_link" tabindex="-1" href="#">Green Bay Packers</a></li>
-              <li><a tabindex="-1" href="#">New England Patriots</a></li>
-            </ul>
         </div>
-
-      <!-- Position -->
-        <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Position
-          <span class="caret"></span></button>
-
-            <ul class="dropdown-menu">
-              <li><a tabindex="-1" href="#">Offense</a></li>
-              <li><a tabindex="-1" href="#">Defense</a></li>
-            </ul>
+        <div id="searchResults">
+            <div id="results"><!--<table id="header-fixed"></table>--></div>
         </div>
-
-      <!-- Plays -->
-        <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Play Type
-          <span class="caret"></span></button>
-
-            <ul class="dropdown-menu">
-              <li><a tabindex="-1" href="#">Interceptions</a></li>
-              <li><a tabindex="-1" href="#">Receiving Yards</a></li>
-              <li><a tabindex="-1" href="#">Receptions</a></li>
-              <li><a tabindex="-1" href="#">Rushing Yards</a></li>
-              <li><a tabindex="-1" href="#">Sacks</a></li>
-              <li><a tabindex="-1" href="#">Safeties</a></li>
-              <li><a tabindex="-1" href="#">Touchdowns</a></li>
-            </ul>
-        </div>
-
-      </div>
-
-      <button onclick="">Reset</button>
-      <button onclick="">Apply</button>
-      
-
+        <br><br><br>
+    </div>
   </body>
 </html>
